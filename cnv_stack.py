@@ -1,12 +1,14 @@
 import arg_parser
-import data_factory
+from data_factory import DataFactory
+from draw import Artist
 
 
 def main():
     args = arg_parser.parse()
     print args
-    factory = data_factory.DataFactory(args.get("bedfile"))
-
+    factory = DataFactory(args.get("bedfile"))
+    artist = Artist(factory)
+    artist.draw()
 
 if __name__ == '__main__':
     main()

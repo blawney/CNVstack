@@ -6,3 +6,7 @@ class CNVData(object):
 
     def get_sample_count(self):
         return len(self.cnv_intervals['sample'].unique())
+
+
+    def get_contigs(self):
+        return self.cnv_intervals['chr'].unique()

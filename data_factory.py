@@ -9,6 +9,8 @@ class DataFactory(object):
     def __init__(self, bedfile_path):
         self.bedfile_path = bedfile_path
         self.data = CNVData()
+        self.read_bedfile()
+        self.read_viewing_windows()
 
 
     def read_bedfile(self):
@@ -35,6 +37,10 @@ class DataFactory(object):
         self.viewing_intervals = bed_ops.merge_bed(self.bedfile_path)
 
 
+    def get_contigs(self):
+        return self.data.get_contigs()
+
+
     def get_length_of_viewing_windows(self):
         '''
         Counts the number of base pairs in the viewing windows
@@ -45,4 +51,6 @@ class DataFactory(object):
         window_sizes.index = self.viewing_intervals["chr"]
 
         # sum the lengths within each chromosome and return in a Series
+        # The series has an index with the chromosome ID and has the total base pairs
+        # where CNVs have been detected.
         return window_sizes.groupby(level="chr").sum()
